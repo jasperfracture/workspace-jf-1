@@ -69,6 +69,7 @@ cpdefine("inline:com-chilipeppr-workspace-jf-1", ["chilipeppr_ready"], function(
             });
             
             this.loadTemplateWidget();
+            this.loadLuaEditorWidget();
             
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
@@ -200,6 +201,28 @@ cpdefine("inline:com-chilipeppr-workspace-jf-1", ["chilipeppr_ready"], function(
                     );
                 }
             );
+        },
+          /**
+         * Load the Console widget via chilipeppr.load()
+         */
+        loadLuaEditorWidget: function(callback) {
+            var that = this;
+            chilipeppr.load(
+            "#com-chilipeppr-lua-editor-instance",
+            "http://raw.githubusercontent.com/chilipeppr/widget-luaeditor/master/auto-generated-widget.html",
+            function() {
+                // Callback after widget loaded into #myDivWidgetLuaeditor
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                     ["inline:com-chilipeppr-widget-luaeditor"], // the id you gave your widget
+                        function(myObjWidgetLuaeditor) {
+                        // Callback that is passed reference to the newly loaded widget
+                        console.log("Widget / Lua Editor just got loaded.", myObjWidgetLuaeditor);
+                        myObjWidgetLuaeditor.init();
+                     }
+                );
+            }
+        );
         },
         /**
          * Load the workspace menu and show the pubsubviewer and fork links using
